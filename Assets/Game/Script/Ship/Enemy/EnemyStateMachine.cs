@@ -33,12 +33,13 @@ namespace Game.Ship.Enemy
             {
                 currentState.ExitState();
             }
-            stateDic.Add(name, stateDic[name]);
+            currentState = stateDic[name];
             currentState.StartState();
         }
         public void UpdateState()
         {
             currentState?.UpdateState();
+            Debug.Log("현재 상태: " + currentState?.GetType().Name);
         }
     }
 }

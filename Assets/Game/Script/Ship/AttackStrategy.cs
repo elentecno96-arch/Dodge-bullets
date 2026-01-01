@@ -4,8 +4,8 @@ using UnityEngine;
 
 namespace Game.Ship
 {
-    public abstract class AttackStrategy : MonoBehaviour
+    public abstract class AttackStrategy
     {
-        abstract protected void Attack(Transform transform, float damage, float attackSpeed);
+        public abstract void Attack(Transform transform);
     }
 }

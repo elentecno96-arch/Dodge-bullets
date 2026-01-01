@@ -1,16 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Game.Ship.Bullet;
+using Game.Ship.Enemy;
 
 namespace Game.Ship.Strategy.Attack
 {
     public class NormalAttack : AttackStrategy
     {
-        public GameObject normalbulletPrefab;
-        protected override void Attack(Transform transform, float damage, float attackSpeed)
+        EnemyShip EnemyShip;
+
+        public NormalAttack(EnemyShip ship)
         {
-            Instantiate(normalbulletPrefab, transform.position, transform.rotation);
-            //bullet.GetComponent<Bullet>().Setup(damage, attackSpeed);
+            this.EnemyShip = ship;
+        }
+        public override void Attack(Transform transform)
+        {
+           Object.Instantiate(EnemyShip.bulletPrefab, transform.position, transform.rotation);
         }
     }
 }
