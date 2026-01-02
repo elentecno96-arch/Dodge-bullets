@@ -79,7 +79,7 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_Size: {x: 2, y: 2}
+  m_Size: {x: 3, y: 3}
   m_Direction: 0
 --- !u!50 &711591497572750686
 Rigidbody2D:
@@ -207,7 +207,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b6377ec0a59eff4e8a468d7817a098c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 5
+  Maxhp: 0
   attackSpeed: 1
   moveSpeed: 3
   bulletPrefab: {fileID: 7302687170219198712, guid: 24546297b4799214e8271e9500a5ade3, type: 3}

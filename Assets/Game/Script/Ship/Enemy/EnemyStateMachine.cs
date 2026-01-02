@@ -39,7 +39,7 @@ namespace Game.Ship.Enemy
         public void UpdateState()
         {
             currentState?.UpdateState();
-            Debug.Log("현재 상태: " + currentState?.GetType().Name);
+            //Debug.Log("현재 상태: " + currentState?.GetType().Name);
         }
     }
 }

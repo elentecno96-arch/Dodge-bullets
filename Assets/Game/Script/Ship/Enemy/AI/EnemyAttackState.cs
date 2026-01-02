@@ -21,7 +21,7 @@ namespace Game.Ship.Enemy.AI
             if (ship.target == null)
                 return;
 
-            Vector3 dir = ship.target.position - ship.transform.position;
+            Vector2 dir = (ship.target.position - ship.transform.position).normalized;
             float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg - 90f;
             ship.transform.rotation = Quaternion.Euler(0, 0, angle);
         }

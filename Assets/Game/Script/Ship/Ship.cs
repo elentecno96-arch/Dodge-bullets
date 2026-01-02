@@ -12,41 +12,47 @@ namespace Game.Ship
         public AttackStrategy attackStrategy;
 
         [SerializeField]
-        protected int hp;
+        protected int Maxhp;
+        protected int currentHp;    
         [SerializeField]
         protected float attackSpeed;
         [SerializeField]
         protected float moveSpeed;
 
-        protected bool isDead = false;
+        protected bool isDead;
         private void Awake()
         {
+            isDead = false;
             Init();
         }
-        void Init()
-        {
-            isDead = false;
-        }
+        protected abstract void Init();
         void Die()
         {
             isDead = true;
             Destroy(gameObject);
 
         }
+        public virtual void Setup(EnemyData data)
+        {
+            this.Maxhp = data.maxHp;
+            this.currentHp = data.maxHp;
+            this.moveSpeed = data.moveSpeed;
+            this.attackSpeed = data.attackSpeed;
+        }
         public void Hit(float damage)
         {
             if (isDead) return;
 
-            hp -= (int)damage;
+            currentHp -= (int)damage;
 
-            if (hp <= 0)
+            if (currentHp <= 0)
             {
                 Die();
             }
         }
         public int GetHp()
         {
-            return hp;
+            return currentHp;
         }
         public float GetMoveSpeed()
         {

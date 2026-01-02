@@ -13,7 +13,7 @@ namespace Game.Ship.Enemy
         public GameObject bulletPrefab;
         public Transform target;
 
-        private void Start()
+        protected override void Init()
         {
             stateMachine = new EnemyStateMachine(this);
             stateMachine.AddState("Move", new AI.EnemyMoveState(this));
@@ -25,6 +25,10 @@ namespace Game.Ship.Enemy
             moveStrategy = new NormalMove();
             attackStrategy = new NormalAttack(this);
             //stateMachine.ChangeState("Attack");
+        }
+        public override void Setup(EnemyData data)
+        {
+            base.Setup(data);
         }
         private void Update()
         {

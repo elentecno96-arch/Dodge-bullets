@@ -3,31 +3,34 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyDetector : MonoBehaviour
+namespace Game.Ship.Enemy
 {
-    EnemyShip ship;
-
-    private void Awake()
+    public class EnemyDetector : MonoBehaviour
     {
-        ship = GetComponentInParent<EnemyShip>();
-    }
+        EnemyShip ship;
 
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.CompareTag("Player"))
+        private void Awake()
         {
-            ship.target = other.transform;
-            ship.ChangeState("Attack");
+            ship = GetComponentInParent<EnemyShip>();
         }
-    }
 
-    private void OnTriggerExit2D(Collider2D other)
-    {
-        if (other.CompareTag("Player"))
+        private void OnTriggerEnter2D(Collider2D other)
         {
-            ship.target = null;
-            GetComponent<Collider2D>().enabled = false;
-            ship.ChangeState("Move");
+            if (other.CompareTag("Player"))
+            {
+                ship.target = other.transform;
+                ship.ChangeState("Attack");
+            }
+        }
+
+        private void OnTriggerExit2D(Collider2D other)
+        {
+            if (other.CompareTag("Player"))
+            {
+                ship.target = null;
+                //GetComponent<Collider2D>().enabled = false;
+                ship.ChangeState("Move");
+            }
         }
     }
 }
