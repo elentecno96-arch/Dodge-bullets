@@ -1,9 +1,10 @@
+using Game.Ship;
+using Game.Ship.Manager;
+using Game.Ship.Strategy.Attack;
+using Game.Ship.Strategy.Move;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Game.Ship;
-using Game.Ship.Strategy.Move;
-using Game.Ship.Strategy.Attack;
 
 namespace Game.Ship.Enemy
 {
@@ -12,7 +13,18 @@ namespace Game.Ship.Enemy
         EnemyStateMachine stateMachine;
         public GameObject bulletPrefab;
         public Transform target;
+        public float EnemyDisappearingTime = 12;
+        bool isUpgradedAttack = false;
 
+        private void OnEnable()
+        {
+            StartCoroutine(ReturnEnemySpawn(this.gameObject, EnemyDisappearingTime));
+        }
+        IEnumerator ReturnEnemySpawn(GameObject Enemy, float delay)
+        {
+            yield  return new WaitForSeconds(delay);
+            PoolManager.Instance.enemyPool.ReturnEnemy(this.gameObject);
+        }
         protected override void Init()
         {
             stateMachine = new EnemyStateMachine(this);
@@ -34,10 +46,21 @@ namespace Game.Ship.Enemy
         {
             stateMachine.UpdateState();
             //Debug.Log("적 함선 업데이트 호출 중이요");
+            if (!isUpgradedAttack && GameManager.instance.GetScore() >= 500f)
+            {
+                UpgradeAttackStrategy();
+            }
         }
         public void ChangeState(string name)
         {
             stateMachine.ChangeState(name);
+        }
+        private void UpgradeAttackStrategy()
+        {
+            attackStrategy = new SectorAttack(this);
+            // attackStrategy = new NormalAttack(this, 5, 45f); 
+            isUpgradedAttack = true;
+            Debug.Log($"{this.gameObject.name}: 점수 500 돌파! 부채꼴 공격으로 전환합니다.");
         }
     }
 }

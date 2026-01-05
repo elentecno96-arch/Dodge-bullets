@@ -1,4 +1,5 @@
 using Game.Ship.Enemy;
+using Game.Ship.Pool;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -46,11 +47,11 @@ namespace Game.Ship.Manager
         public void SpawnEnemy(EnemyData data, Vector2 position)
         {
             float difficultyMult = 1.0f + (GameManager.instance.GetScore() / 1000.0f);
-            
+            GameObject pooledObject = PoolManager.Instance.enemyPool.GetEnemy();
             new EnemyBuilder()
                 .SetbaseData(data)
                 .SetDifficultyMult(difficultyMult)
-                .Build(position);
+                .Build(pooledObject, position);
         }
     }
 }

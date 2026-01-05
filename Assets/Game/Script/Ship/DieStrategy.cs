@@ -4,8 +4,8 @@ using UnityEngine;
 
 namespace Game.Ship
 {
-    public abstract class DieStrategy : MonoBehaviour
+    public abstract class DieStrategy
     {
-        abstract protected void Die();
+        abstract public void Die(GameObject obj);
     }
 }

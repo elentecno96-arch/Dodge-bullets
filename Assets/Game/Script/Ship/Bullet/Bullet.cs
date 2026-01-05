@@ -1,4 +1,5 @@
 using Game.Ship.Interface;
+using Game.Ship.Manager;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,11 +15,15 @@ namespace Game.Ship.Bullet
         [SerializeField]
         public float lifeTime;
 
-        void Start()
-        {
-            Destroy(gameObject, lifeTime);
-        }
+        private Coroutine lifeRoutine;
 
+        private void Start()
+        {
+            damage = 1;
+            speed = 3;
+            lifeTime = 3f;
+            Setup(damage, speed);
+        }
         void Update()
         {
             transform.Translate(Vector3.up * speed * Time.deltaTime);
@@ -30,13 +35,29 @@ namespace Game.Ship.Bullet
             if (hittable != null)
             {
                 hittable.Hit(damage);
-                Destroy(gameObject);
+                ReturnToPool();
+                //PoolManager.Instance.bulletPool.ReturnBullet(gameObject);
+                //Destroy(gameObject);
             }
         }
         public void Setup(float damage, float speed)
         {
             this.damage = damage;
             this.speed = speed;
+
+            if (lifeRoutine != null)
+                StopCoroutine(lifeRoutine);
+
+            lifeRoutine = StartCoroutine(LifeTimer());
+        }
+        private IEnumerator LifeTimer()
+        {
+            yield return new WaitForSeconds(lifeTime);
+            ReturnToPool();
+        }
+        private void ReturnToPool()
+        {
+            PoolManager.Instance.bulletPool.ReturnBullet(gameObject);
         }
     }
 }

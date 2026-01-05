@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Game.Ship;
+using Game.Ship.Interface;
 
 namespace Game.Ship.Player
 {
@@ -9,7 +10,13 @@ namespace Game.Ship.Player
     {
         protected override void Init()
         {
-            throw new System.NotImplementedException();
+            moveStrategy = new Strategy.Move.PlayerMove();
+            dieStrategy = new Strategy.Die.NormalDie();
+        }
+        private void Update()
+        {
+            if (isDead) return;
+            moveStrategy?.Move(transform, moveSpeed);
         }
     }
 }

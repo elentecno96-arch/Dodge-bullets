@@ -25,6 +25,7 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         survivalTime += Time.deltaTime;
+        AddScore(10f * Time.deltaTime);
     }
 
     public float GetScore()

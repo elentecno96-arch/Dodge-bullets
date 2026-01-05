@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyName: NormalEnemy
   prefab: {fileID: 4138968060677478364, guid: 4e0e1c971a9893142b8925be9255775e, type: 3}
-  bulletPrefab: {fileID: 0}
-  maxHp: 5
+  bulletPrefab: {fileID: 4138968060677478364, guid: 4e0e1c971a9893142b8925be9255775e, type: 3}
+  maxHp: 1
   moveSpeed: 2
   attackSpeed: 1

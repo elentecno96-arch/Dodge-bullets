@@ -10,6 +10,7 @@ namespace Game.Ship
     {
         public MoveStrategy moveStrategy;
         public AttackStrategy attackStrategy;
+        public DieStrategy dieStrategy;
 
         [SerializeField]
         protected int Maxhp;
@@ -29,8 +30,7 @@ namespace Game.Ship
         void Die()
         {
             isDead = true;
-            Destroy(gameObject);
-
+            dieStrategy.Die(gameObject);
         }
         public virtual void Setup(EnemyData data)
         {

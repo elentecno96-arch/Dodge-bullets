@@ -20,18 +20,20 @@ namespace Game.Ship
             difficultyMult = mult;
             return this;
         }
-        public GameObject Build(Vector2 pos)
+        public GameObject Build(GameObject obj, Vector2 pos)
         {
             EnemyData data = enemyData.Clone();
-
             data.moveSpeed *= difficultyMult;
             data.attackSpeed /= difficultyMult;
 
-            GameObject enemyObj = GameObject.Instantiate(data.prefab, pos, Quaternion.identity);
-            EnemyShip enemyShip = enemyObj.GetComponent<EnemyShip>();
+            obj.transform.position = pos;
+            obj.transform.rotation = Quaternion.identity;
 
+            EnemyShip enemyShip = obj.GetComponent<EnemyShip>();
             enemyShip.Setup(data);
-            return enemyObj;
+
+            obj.SetActive(true);
+            return obj;
         }
     }
 }
